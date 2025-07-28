@@ -15,7 +15,7 @@ namespace SW_MES_API.Repositories
 
         public async Task<User?> GetByUserInfoAsync(int EmployeeID)
         {
-            return await _context.MESUsers.FirstOrDefaultAsync(u => u.EmployeeID == EmployeeID && u.IsActive);
+            return await _context.Users.FirstOrDefaultAsync(u => u.EmployeeID == EmployeeID && u.IsActive);
         }
     }
 }

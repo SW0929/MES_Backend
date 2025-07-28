@@ -9,7 +9,7 @@ namespace SW_MES_API.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<User> MESUsers { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 }
 
