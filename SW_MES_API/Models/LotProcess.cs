@@ -1,7 +1,10 @@
-﻿namespace SW_MES_API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SW_MES_API.Models
 {
     public class LotProcess
     {
+        [Key]
         public required int LotPrcessCode { get; set; }
         public required string LotCode { get; set; }
         public required string ProcessCode { get; set; }
