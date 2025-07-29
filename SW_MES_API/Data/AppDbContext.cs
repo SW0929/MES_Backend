@@ -10,6 +10,13 @@ namespace SW_MES_API.Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Products> Products { get; set; }
+        public DbSet<Process> Processes { get; set; }
+        public DbSet<WorkOrder> WorkOrder { get; set; }
+        public DbSet<Equipment> Equipments { get; set; }
+        public DbSet<EquipmentDefect> EquipmentDefects { get; set; }
+        public DbSet<Lot> Lots { get; set; }
+        public DbSet<LotProcess> LotProcesses { get; set; }
     }
 }
 

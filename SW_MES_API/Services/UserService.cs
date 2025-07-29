@@ -29,7 +29,8 @@ namespace SW_MES_API.Services
             {   
                 EmployeeID = user.EmployeeID,
                 Name = user.Name,
-                Role = user.Role
+                Role = user.Role,
+                IsActive = user.IsActive
             };
         }
     }
