@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SW_MES_API.DTO;
-using SW_MES_API.Services;
+using SW_MES_API.DTO.Admin.WorkOrder;
+using SW_MES_API.Services.Admin;
 
-namespace SW_MES_API.Controllers
+namespace SW_MES_API.Controllers.Admin
 {
     [ApiController]
     [Route("api/[controller]")]

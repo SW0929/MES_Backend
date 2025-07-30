@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SW_MES_API.DTO;
-using SW_MES_API.Services;
+using SW_MES_API.DTO.Login;
+using SW_MES_API.Services.Login;
 
-namespace SW_MES_API.Controllers
+namespace SW_MES_API.Controllers.Login
 {
     // 클라이언트가 로그인 요청을 보내면 가장 먼저 도착하는 곳
     // 내부적으로 LoginAsync() 호출해서 로그인 성공/실패 판단!!

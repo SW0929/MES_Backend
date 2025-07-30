@@ -1,8 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
-using SW_MES_API.Repositories;
-using SW_MES_API.Services;
+using SW_MES_API.Repositories.Admin;
+using SW_MES_API.Repositories.Login;
+using SW_MES_API.Services.Admin;
+using SW_MES_API.Services.Login;
 
 namespace SW_MES_API
 {

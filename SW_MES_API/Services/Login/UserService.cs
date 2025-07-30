@@ -1,8 +1,8 @@
-﻿using SW_MES_API.DTO;
+﻿using SW_MES_API.DTO.Login;
 using SW_MES_API.Models;
-using SW_MES_API.Repositories;
+using SW_MES_API.Repositories.Login;
 
-namespace SW_MES_API.Services
+namespace SW_MES_API.Services.Login
 {
     // Repository에서 사용자 정보를 가져오고
     // 로직을 담당

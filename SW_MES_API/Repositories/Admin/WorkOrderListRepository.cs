@@ -2,7 +2,7 @@
 using SW_MES_API.Data;
 using SW_MES_API.Models;
 
-namespace SW_MES_API.Repositories
+namespace SW_MES_API.Repositories.Admin
 {
     public class WorkOrderListRepository
     {
