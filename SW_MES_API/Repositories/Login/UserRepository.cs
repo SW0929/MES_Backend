@@ -2,7 +2,7 @@
 using SW_MES_API.Data;
 using SW_MES_API.Models;
 
-namespace SW_MES_API.Repositories
+namespace SW_MES_API.Repositories.Login
 {
     // 순수하게 데이터 베이스 접근만 한다.
     public class UserRepository

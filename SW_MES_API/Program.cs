@@ -1,8 +1,10 @@
 
 using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
-using SW_MES_API.Repositories;
-using SW_MES_API.Services;
+using SW_MES_API.Repositories.Admin;
+using SW_MES_API.Repositories.Login;
+using SW_MES_API.Services.Admin;
+using SW_MES_API.Services.Login;
 
 namespace SW_MES_API
 {
@@ -28,6 +30,10 @@ namespace SW_MES_API
             builder.Services.AddScoped<UserRepository>();
             builder.Services.AddScoped<UserService>();
 
+            builder.Services.AddScoped<WorkOrderListRepository>();
+            builder.Services.AddScoped<WorkOrderService>();
+
+            builder.Services.AddSingleton<JwtService>();
 
             builder.Services.AddCors(options =>
             {
@@ -39,6 +45,27 @@ namespace SW_MES_API
                               .AllowAnyMethod();
                     });
             });
+            // JWT 인증을 설정합니다.(미들웨어) AddJwtBearer 미들웨어
+            /*
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+
+                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                    ValidAudience = builder.Configuration["Jwt:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                };
+            });
+            */
+
+
 
             var app = builder.Build();
 
@@ -57,6 +84,10 @@ namespace SW_MES_API
 
 
             app.MapControllers();
+
+            // JWT 인증 미들웨어를 사용하여 요청을 인증합니다.
+            //app.UseAuthentication();
+            //app.UseAuthorization();
 
             app.Run();
         }
