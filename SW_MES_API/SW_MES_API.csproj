@@ -15,4 +15,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\Operator\" />
+    <Folder Include="DTO\Operator\" />
+    <Folder Include="Repositories\Operator\" />
+    <Folder Include="Services\Operator\" />
+  </ItemGroup>
+
 </Project>

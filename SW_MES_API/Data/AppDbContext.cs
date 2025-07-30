@@ -11,12 +11,12 @@ namespace SW_MES_API.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Products> Products { get; set; }
-        public DbSet<Process> Processes { get; set; }
+        public DbSet<Process> Process { get; set; }
         public DbSet<WorkOrder> WorkOrder { get; set; }
-        public DbSet<Equipment> Equipments { get; set; }
-        public DbSet<EquipmentDefect> EquipmentDefects { get; set; }
-        public DbSet<Lot> Lots { get; set; }
-        public DbSet<LotProcess> LotProcesses { get; set; }
+        public DbSet<Equipment> Equipment { get; set; }
+        public DbSet<EquipmentDefect> EquipmentDefect { get; set; }
+        public DbSet<Lot> Lot { get; set; }
+        public DbSet<LotProcess> LotProcess { get; set; }
     }
 }
 

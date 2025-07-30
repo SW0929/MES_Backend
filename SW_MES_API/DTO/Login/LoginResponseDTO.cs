@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SW_MES_API.DTO
+namespace SW_MES_API.DTO.Login
 {
     public class LoginResponseDTO
     {

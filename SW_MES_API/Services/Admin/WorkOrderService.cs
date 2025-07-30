@@ -1,8 +1,9 @@
-﻿using SW_MES_API.DTO;
+﻿using SW_MES_API.DTO.Admin;
+using SW_MES_API.DTO.Admin.WorkOrder;
 using SW_MES_API.Models;
-using SW_MES_API.Repositories;
+using SW_MES_API.Repositories.Admin;
 
-namespace SW_MES_API.Services
+namespace SW_MES_API.Services.Admin
 {
     public class WorkOrderService
     {
@@ -23,11 +24,12 @@ namespace SW_MES_API.Services
                 return new WorkOrderListResponseDTO
                 {
                     Message = "작업 지시가 없습니다.",
-                    WorkOrders = new List<WorkOrderResponseDTO>()
+                    WorkOrders = [] //new List<WorkOrderResponseDTO>()
                 };
             }
 
-            var workOrderDTOs = workOrders.Select(wo => new WorkOrderResponseDTO
+            // .Select(...)는 "매핑(mapping)" 작업을 수행
+            var workOrderDTO = workOrders.Select(wo => new WorkOrderResponseDTO
             {
                 WorkOrderID = wo.WorkOrderID,
                 ProductCode = wo.ProductCode,
@@ -40,7 +42,7 @@ namespace SW_MES_API.Services
             return new WorkOrderListResponseDTO
             {
                 Message = "작업 지시 조회 성공",
-                WorkOrders = workOrderDTOs
+                WorkOrders = workOrderDTO
             };
         }
 
@@ -59,12 +61,12 @@ namespace SW_MES_API.Services
                 return new WorkOrderListResponseDTO
                 {
                     Message = "해당 날짜에 작업 지시가 없습니다.",
-                    WorkOrders = new List<WorkOrderResponseDTO>()
+                    WorkOrders = [] //new List<WorkOrderResponseDTO>()
                 };
             }
 
             // 3. Entity -> DTO 매핑
-            var workOrderDTOs = workOrders.Select(wo => new WorkOrderResponseDTO
+            var workOrderDTO = workOrders.Select(wo => new WorkOrderResponseDTO
             {
                 WorkOrderID = wo.WorkOrderID,
                 ProductCode = wo.ProductCode,
@@ -77,7 +79,7 @@ namespace SW_MES_API.Services
             return new WorkOrderListResponseDTO
             {
                 Message = "작업 지시 조회 성공",
-                WorkOrders = workOrderDTOs
+                WorkOrders = workOrderDTO
             };
         }
 
