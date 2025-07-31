@@ -5,16 +5,17 @@ using SW_MES_API.Repositories.Common;
 
 namespace SW_MES_API.Services.Common
 {
+
     public class EquipmentService : IEquipmentService
     {
         private readonly IEquipmentListRepository _equipmentListRepository;
 
-        public EquipmentService(IEquipmentListRepository equipmentService)
+        public EquipmentService(IEquipmentListRepository equipmentRepository)
         {
-            _equipmentListRepository = equipmentService;
+            _equipmentListRepository = equipmentRepository;
         }
 
-        public async Task<EquipmentListResponseDTO> GetAlEquipmetsAsync()
+        public async Task<EquipmentListResponseDTO> GetAllEquipmentsAsync()
         {
             var equipments = await _equipmentListRepository.GetALLEquipmentAsync();
 
@@ -23,33 +24,53 @@ namespace SW_MES_API.Services.Common
                 return new EquipmentListResponseDTO
                 {
                     Message = "조회 가능한 설비가 없습니다.",
-                    Equipment = [] //new List<EquipmentListDTO>()
+                    Equipment = []
                 };
             }
 
-            // .Select(...)는 "매핑(mapping)" 작업을 수행
-            var equipmentDTO = equipments.Select(wo => new WorkOrderResponseDTO
+            var equipmentDTO = equipments.Select(eq => new EquipmentResponseDTO
             {
-                WorkOrderID = wo.WorkOrderID,
-                ProductCode = wo.ProductCode,
-                Quantity = wo.Quantity,
-                SpecialNote = wo.SpecialNote,
-                StartDate = wo.StartDate,
-                EndDate = wo.EndDate
+                EquipmentCode = eq.EquipmentCode,
+                Name = eq.Name,
+                ProcessCode = eq.ProcessCode,
+                Status = eq.Status,
+                LastUsedDate = eq.LastUsedDate
             }).ToList();
 
-            return new WorkOrderListResponseDTO
+            return new EquipmentListResponseDTO
             {
-                Message = "작업 지시 조회 성공",
-                WorkOrders = workOrderDTO
+                Message = "전체 설비 조회 성공",
+                Equipment = equipmentDTO
             };
-            return await _equipmentListRepository.GetALLEquipmentAsync();
-
         }
 
-        public async Task<List<EquipmentListResponseDTO>> GetEquipmentByProcessAsync(string ProcessCode)
+        public async Task<EquipmentListResponseDTO> GetEquipmentByProcessAsync(string processCode)
         {
-            return await _equipmentListRepository.GetALLEquipmentByProcessAsync(ProcessCode);
+            var equipments = await _equipmentListRepository.GetALLEquipmentByProcessAsync(processCode);
+
+            if (equipments == null || equipments.Count == 0)
+            {
+                return new EquipmentListResponseDTO
+                {
+                    Message = $"공정 코드 {processCode}에 대한 설비가 없습니다.",
+                    Equipment = []
+                };
+            }
+
+            var equipmentDTO = equipments.Select(eq => new EquipmentResponseDTO
+            {
+                EquipmentCode = eq.EquipmentCode,
+                Name = eq.Name,
+                ProcessCode = eq.ProcessCode,
+                Status = eq.Status,
+                LastUsedDate = eq.LastUsedDate
+            }).ToList();
+
+            return new EquipmentListResponseDTO
+            {
+                Message = $"공정 코드 {processCode}의 설비 조회 성공",
+                Equipment = equipmentDTO
+            };
         }
     }
 }
