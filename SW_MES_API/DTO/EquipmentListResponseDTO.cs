@@ -5,8 +5,6 @@ namespace SW_MES_API.DTO
     public class EquipmentListResponseDTO
     {
         public required string Message { get; set; }
-        public List<EquipmentResponseDTO>? Equipment { get; set; }
-
-        
+        public List<EquipmentResponseDTO> Equipment { get; set; } = [];
     }
 }

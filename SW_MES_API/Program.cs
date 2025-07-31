@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
 using SW_MES_API.Repositories.Admin;
+using SW_MES_API.Repositories.Common;
 using SW_MES_API.Repositories.Login;
 using SW_MES_API.Services.Admin;
+using SW_MES_API.Services.Common;
 using SW_MES_API.Services.Login;
 
 namespace SW_MES_API
@@ -37,7 +39,9 @@ namespace SW_MES_API
             builder.Services.AddScoped<ILotRepository, LotsRepository>();
             builder.Services.AddScoped<ILotProcessRepository, LotProcessRepository>();
             builder.Services.AddScoped<ILotService,LotsService>();
-            
+            builder.Services.AddScoped<IEquipmentListRepository, EquipmentListRepository>();
+            builder.Services.AddScoped<IEquipmentService, EquipmentService>();
+
 
 
             builder.Services.AddSingleton<JwtService>();

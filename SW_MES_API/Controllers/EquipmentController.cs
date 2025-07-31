@@ -6,7 +6,7 @@ namespace SW_MES_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EquipmentController
+    public class EquipmentController: ControllerBase
     {
         private readonly IEquipmentService _equipmentService;
 
@@ -18,17 +18,34 @@ namespace SW_MES_API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllEquipments()
         {
-            var equipments = await _equipmentService.GetAllEquipmetsAsync();
+            var equipments = await _equipmentService.GetAllEquipmentsAsync();
 
-            if (equipments == null || !equipments.Any())
-                return NotFound(new { message = "조회 가능한 설비가 없습니다." , });
+            if (equipments == null || equipments.Equipment == null || equipments.Equipment.Count == 0)
+            {
+                return NotFound(new { message = "조회된 설비가 없습니다." });
+            }
 
             return Ok(new
             {
                 message = "설비 조회 성공",
-                Equipments = equipments
+                Equipments = equipments.Equipment
             });
 
+        }
+
+        [HttpGet("process/{processCode}")]
+        public async Task<IActionResult> GetEquipmentByProcess(string processCode)
+        {
+            var equipments = await _equipmentService.GetEquipmentByProcessAsync(processCode);
+
+            if (equipments.Equipment == null || equipments.Equipment == null || equipments.Equipment.Count == 0)
+                return NotFound(new { message = $"공정 '{processCode}'에 대한 설비가 없습니다." });
+
+            return Ok(new
+            {
+                message = equipments.Message,
+                Equipments = equipments.Equipment
+            });
         }
     }
 }

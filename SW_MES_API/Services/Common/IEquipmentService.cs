@@ -6,8 +6,8 @@ namespace SW_MES_API.Services.Common
 {
     public interface IEquipmentService
     {
-        Task<List<EquipmentListResponseDTO>> GetAllEquipmetsAsync();
+        Task<EquipmentListResponseDTO> GetAllEquipmentsAsync();
 
-        Task<List<EquipmentListResponseDTO>> GetEquipmentByProcessAsync(string ProcessCode);
+        Task<EquipmentListResponseDTO> GetEquipmentByProcessAsync(string ProcessCode);
     }
 }
