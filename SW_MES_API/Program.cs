@@ -27,11 +27,18 @@ namespace SW_MES_API
             //**생성자 주입(Dependency Injection) * *을 가능하게 합니다.
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             builder.Services.AddScoped<UserRepository>();
             builder.Services.AddScoped<UserService>();
 
             builder.Services.AddScoped<WorkOrderListRepository>();
             builder.Services.AddScoped<WorkOrderService>();
+
+            builder.Services.AddScoped<ILotRepository, LotsRepository>();
+            builder.Services.AddScoped<ILotProcessRepository, LotProcessRepository>();
+            builder.Services.AddScoped<ILotService,LotsService>();
+            
+
 
             builder.Services.AddSingleton<JwtService>();
 

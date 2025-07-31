@@ -4,7 +4,7 @@
     {
         public required string WorkOrderID { get; set; }
         public required int CreatedBy { get; set; }
-        public List<LotItemDTO>? Lots { get; set; }
+        public List<LotItemDTO>? Lot { get; set; }
     }
 
 }
