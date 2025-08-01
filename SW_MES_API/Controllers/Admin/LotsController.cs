@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SW_MES_API.DTO;
 using SW_MES_API.DTO.Admin.Lots;
 using SW_MES_API.Services.Admin;
 
@@ -42,6 +43,15 @@ namespace SW_MES_API.Controllers.Admin
             if (result == null)
                 return NotFound(new { message = $"Lot '{code}'을(를) 찾을 수 없습니다." });
             return Ok(new { message = "Lot 삭제 완료", deletedLot = result });
+        }
+
+        [HttpPatch("lot-process/assign")]
+        public async Task<IActionResult> AssignLotProcess([FromBody] AssignLotRequestDTO request)
+        {
+            var result = await _lotsService.AssignLotAsync(request);
+            if (result == null)
+                return NotFound(new { message = $"Lot '{request.LotCode}'을(를) 찾을 수 없습니다." });
+            return Ok(new { message = "작업자/설비 할당 완료", assignedLot = result });
         }
     }
 }

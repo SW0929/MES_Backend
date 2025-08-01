@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
+using SW_MES_API.DTO;
 using SW_MES_API.DTO.Admin.Lots;
 using SW_MES_API.Models;
 using SW_MES_API.Repositories.Admin;
@@ -117,6 +118,24 @@ namespace SW_MES_API.Services.Admin
                     LotCode = lotCode
                 };
             }
+        }
+
+        public async Task<AssignLotResponseDTO> AssignLotAsync(AssignLotRequestDTO request)
+        {
+            var lotProcess = await _lotProcessRepository.GetLotProcessByLotCodeAsync(request.LotCode, request.ProcessCode);
+            if (lotProcess == null)
+                throw new Exception("해당 공정의 LotProcess를 찾을 수 없습니다.");
+
+            await _lotProcessRepository.UpdateAssignmentAsync(lotProcess, request.EmployeeID, request.EquipmentCode);
+
+            return new AssignLotResponseDTO
+            {
+                Message = "작업자 및 장비 할당 완료",
+                LotCode = request.LotCode,
+                LotProcessCode = lotProcess.ProcessCode, // 이거 LotCode 인지 고민 좀 해봐야 함.
+                AssignedEmployee = request.EmployeeID,
+                AssignedEquipmentCode = request.EquipmentCode
+            };
         }
     }
 }

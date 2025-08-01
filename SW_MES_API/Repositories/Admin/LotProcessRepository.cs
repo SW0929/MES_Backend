@@ -30,5 +30,20 @@ namespace SW_MES_API.Repositories.Admin
                ExecuteDeleteAsync() → 빠르고 간단한 대량 삭제용, 단순 조건 삭제에 최고, .NET 7.0 이상에서 사용 가능
             */
         }
+
+        // 잠만 이거 LotProcessCode 값으로 해도 되는거 아니가 그걸로 하고 있긴한데 시벌
+        public async Task<LotProcess?> GetLotProcessByLotCodeAsync(string lotCode, string processCode)
+        {
+            return await _context.LotProcess
+            .FirstOrDefaultAsync(lp => lp.LotCode == lotCode && lp.ProcessCode == processCode);
+        }
+
+        public async Task UpdateAssignmentAsync(LotProcess lotProcess, int employeeID, string equipmentCode)
+        {
+            lotProcess.IssuedBy = employeeID;
+            lotProcess.EquipmentCode = equipmentCode;
+            _context.LotProcess.Update(lotProcess);
+            await _context.SaveChangesAsync();
+        }
     }
 }
