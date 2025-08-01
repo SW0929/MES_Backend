@@ -1,5 +1,6 @@
 ﻿using SW_MES_API.DTO;
 using SW_MES_API.DTO.Admin.WorkOrder;
+using SW_MES_API.DTO.Common;
 using SW_MES_API.Models;
 using SW_MES_API.Repositories.Common;
 
@@ -24,7 +25,7 @@ namespace SW_MES_API.Services.Common
                 return new EquipmentListResponseDTO
                 {
                     Message = "조회 가능한 설비가 없습니다.",
-                    Equipment = []
+                    Equipments = []
                 };
             }
 
@@ -40,7 +41,7 @@ namespace SW_MES_API.Services.Common
             return new EquipmentListResponseDTO
             {
                 Message = "전체 설비 조회 성공",
-                Equipment = equipmentDTO
+                Equipments = equipmentDTO
             };
         }
 
@@ -53,7 +54,7 @@ namespace SW_MES_API.Services.Common
                 return new EquipmentListResponseDTO
                 {
                     Message = $"공정 코드 {processCode}에 대한 설비가 없습니다.",
-                    Equipment = []
+                    Equipments = []
                 };
             }
 
@@ -69,7 +70,7 @@ namespace SW_MES_API.Services.Common
             return new EquipmentListResponseDTO
             {
                 Message = $"공정 코드 {processCode}의 설비 조회 성공",
-                Equipment = equipmentDTO
+                Equipments = equipmentDTO
             };
         }
     }

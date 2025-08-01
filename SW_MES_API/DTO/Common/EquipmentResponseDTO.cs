@@ -1,4 +1,4 @@
-﻿namespace SW_MES_API.DTO
+﻿namespace SW_MES_API.DTO.Common
 {
     public class EquipmentResponseDTO
     {

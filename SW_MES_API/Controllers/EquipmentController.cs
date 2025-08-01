@@ -20,7 +20,7 @@ namespace SW_MES_API.Controllers
         {
             var equipments = await _equipmentService.GetAllEquipmentsAsync();
 
-            if (equipments == null || equipments.Equipment == null || equipments.Equipment.Count == 0)
+            if (equipments == null || equipments.Equipments == null || equipments.Equipments.Count == 0)
             {
                 return NotFound(new { message = "조회된 설비가 없습니다." });
             }
@@ -28,7 +28,7 @@ namespace SW_MES_API.Controllers
             return Ok(new
             {
                 message = "설비 조회 성공",
-                Equipments = equipments.Equipment
+                Equipments = equipments.Equipments
             });
 
         }
@@ -38,13 +38,13 @@ namespace SW_MES_API.Controllers
         {
             var equipments = await _equipmentService.GetEquipmentByProcessAsync(processCode);
 
-            if (equipments.Equipment == null || equipments.Equipment == null || equipments.Equipment.Count == 0)
+            if (equipments.Equipments == null || equipments.Equipments == null || equipments.Equipments.Count == 0)
                 return NotFound(new { message = $"공정 '{processCode}'에 대한 설비가 없습니다." });
 
             return Ok(new
             {
                 message = equipments.Message,
-                Equipments = equipments.Equipment
+                Equipments = equipments.Equipments
             });
         }
     }
