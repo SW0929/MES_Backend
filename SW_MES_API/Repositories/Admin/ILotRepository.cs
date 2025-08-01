@@ -19,6 +19,10 @@ namespace SW_MES_API.Repositories.Admin
 
         // 생성된 Lot을 데이터베이스에 저장하는 메서드
         Task AddLotsAsync(List<Lot> lots);
-        
+
+        Task UpdateLotAsync(string lotCode, int quantity);
+
+        Task DeleteLotAsync(string lotCode);
+
     }
 }

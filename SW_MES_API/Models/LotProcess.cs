@@ -14,7 +14,7 @@ namespace SW_MES_API.Models
         public DateTime? EndDate { get; set; }
         public int? IssuedBy { get; set; }
         public string? EquipmentCode { get; set; }
-        public string? Status { get; set; }
+        public required string Status { get; set; }
         public string? DefectCause { get; set; }
 
     }

@@ -6,5 +6,9 @@ namespace SW_MES_API.Services.Admin
     public interface ILotService
     {
         Task<List<Lot>> InsertLotsAsync(CreateLotRequestDTO request);
+
+        Task<UpdateLotsResponseDTO> UpdateLotsAsync(string lotCode, UpdateLotsRequestDTO request);
+
+        Task<DeleteLotsResponseDTO> DeleteLotsAsync(string lotCode);
     }
 }

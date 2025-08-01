@@ -5,7 +5,7 @@ using SW_MES_API.Models;
 
 namespace SW_MES_API.Repositories.Admin
 {
-    public class LotsRepository: ILotRepository
+    public class LotsRepository : ILotRepository
     {
         private readonly AppDbContext _context;
         public LotsRepository(AppDbContext context)
@@ -20,7 +20,29 @@ namespace SW_MES_API.Repositories.Admin
         public async Task AddLotsAsync(List<Lot> lots)
         {
             await _context.Lot.AddRangeAsync(lots);
-            
+
+        }
+
+        public async Task UpdateLotAsync(string lotCode, int quantity)
+        {
+            // 조건에 맞는 첫 번째 행을 비동기로 조회합니다. 없으면 null 반환.
+            var lot = await _context.Lot.FirstOrDefaultAsync(l => l.LotCode == lotCode);
+            if (lot == null)
+                throw new Exception("Lot not found");
+
+            lot.Quantity = quantity;
+            await _context.SaveChangesAsync();
+
+        }
+
+        public async Task DeleteLotAsync(string lotCode)
+        {
+            // 조건에 맞는 첫 번째 행을 비동기로 조회합니다. 없으면 null 반환.
+            var lot = await _context.Lot.FirstOrDefaultAsync(l => l.LotCode == lotCode);
+            if (lot == null)
+                throw new Exception("Lot not found");
+            _context.Lot.Remove(lot);
+            await _context.SaveChangesAsync();
         }
     }
 }
