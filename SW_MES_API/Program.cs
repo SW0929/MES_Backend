@@ -45,6 +45,7 @@ namespace SW_MES_API
             builder.Services.AddScoped<IEquipmentService, EquipmentService>();
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<IEquipmentRespository, EquipmentRespository>();
 
 
 

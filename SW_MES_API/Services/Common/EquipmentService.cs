@@ -1,7 +1,9 @@
 ﻿using SW_MES_API.DTO;
+using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.DTO.Admin.WorkOrder;
 using SW_MES_API.DTO.Common;
 using SW_MES_API.Models;
+using SW_MES_API.Repositories.Admin;
 using SW_MES_API.Repositories.Common;
 
 namespace SW_MES_API.Services.Common
@@ -10,10 +12,22 @@ namespace SW_MES_API.Services.Common
     public class EquipmentService : IEquipmentService
     {
         private readonly IEquipmentListRepository _equipmentListRepository;
+        private readonly IEquipmentRespository _equipmentRepository;
 
-        public EquipmentService(IEquipmentListRepository equipmentRepository)
+        public EquipmentService(IEquipmentListRepository equipmentRepository, IEquipmentRespository equipmentRespository)
         {
             _equipmentListRepository = equipmentRepository;
+            _equipmentRepository = equipmentRespository;
+        }
+
+        public async Task<CreateEquipmentResponse> CreateEquipment(CreateEquipmentRequestDTO request)
+        {
+            return await _equipmentRepository.CreateEquipmentAsync(request);
+        }
+
+        public async Task<DeleteEquipmentResponseDTO> DeleteEquipmentAsync(string equipmentCode)
+        {
+            return await _equipmentRepository.DeleteEquipmentAsync(equipmentCode);
         }
 
         public async Task<EquipmentListResponseDTO> GetAllEquipmentsAsync()

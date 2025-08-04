@@ -35,6 +35,7 @@ namespace SW_MES_API.Repositories.Admin
 
         }
 
+        // ResponseDTO 만들어서 처리할지 확인 바람.
         public async Task DeleteLotAsync(string lotCode)
         {
             // 조건에 맞는 첫 번째 행을 비동기로 조회합니다. 없으면 null 반환.

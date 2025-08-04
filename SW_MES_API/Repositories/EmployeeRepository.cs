@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
+using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.DTO.Common;
 using SW_MES_API.Models;
 
@@ -13,6 +14,7 @@ namespace SW_MES_API.Repositories
         {
             _context = context;
         }
+
 
         // JWT 인증 사용하면 수정해야 함.
         public async Task<List<EmployeeResponseDTO>> GetAllEmployeesByDepartmentAsync(string departmentName)
