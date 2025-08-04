@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.Services.Common;
 
 namespace SW_MES_API.Controllers
@@ -15,7 +16,28 @@ namespace SW_MES_API.Controllers
             _equipmentService = equipmentService;
         }
 
-        [HttpGet]
+        [HttpPost] // 설비 추가
+        public async Task<IActionResult> CreateEquipment([FromBody] CreateEquipmentRequestDTO request)
+        {
+            var result = await _equipmentService.CreateEquipment(request);
+
+            if (result == null)
+                return BadRequest(new { message = "설비 추가 실패" });
+
+            return StatusCode(201, new { message = "설비 추가 완료"});
+
+        }
+
+        [HttpDelete("{equipmentCode}")] // 설비 삭제
+        public async Task<IActionResult> DeleteEquipment(string equipmentCode)
+        {
+            var result = await _equipmentService.DeleteEquipmentAsync(equipmentCode);
+            if (result == null)
+                return NotFound(new { message = "해당 설비를 찾을 수 없습니다." });
+            return Ok(new { message = result.Message, result.EquipmentCode });
+        }
+
+        [HttpGet] // 설비 전체 조회
         public async Task<IActionResult> GetAllEquipments()
         {
             var equipments = await _equipmentService.GetAllEquipmentsAsync();
@@ -33,7 +55,7 @@ namespace SW_MES_API.Controllers
 
         }
 
-        [HttpGet("process/{processCode}")]
+        [HttpGet("process/{processCode}")] // 공정별 설비 조회
         public async Task<IActionResult> GetEquipmentByProcess(string processCode)
         {
             var equipments = await _equipmentService.GetEquipmentByProcessAsync(processCode);
