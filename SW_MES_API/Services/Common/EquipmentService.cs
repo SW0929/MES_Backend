@@ -87,5 +87,10 @@ namespace SW_MES_API.Services.Common
                 Equipments = equipmentDTO
             };
         }
+
+        public async Task<UpdateEquipmentResponseDTO> UpdateEquipmentAsync(string equipmentCode, UpdateEquipmentRequestDTO request)
+        {
+            return await _equipmentRepository.UpdateEquipmentAsync(equipmentCode, request);
+        }
     }
 }

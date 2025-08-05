@@ -28,6 +28,15 @@ namespace SW_MES_API.Controllers
 
         }
 
+        [HttpPut("{equipmentCode}")] // 설비 수정
+        public async Task<IActionResult> UpdateEquipment(string equipmentCode, [FromBody] UpdateEquipmentRequestDTO request)
+        {
+            var reslt = await _equipmentService.UpdateEquipmentAsync(equipmentCode, request);
+            if (reslt == null)
+                return NotFound(new { message = "해당 설비를 찾을 수 없습니다." });
+            return Ok(new { message = reslt.Message});
+        }
+
         [HttpDelete("{equipmentCode}")] // 설비 삭제
         public async Task<IActionResult> DeleteEquipment(string equipmentCode)
         {
