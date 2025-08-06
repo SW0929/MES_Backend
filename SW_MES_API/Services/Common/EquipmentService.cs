@@ -88,6 +88,11 @@ namespace SW_MES_API.Services.Common
             };
         }
 
+        public async Task HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request)
+        {
+            await _equipmentRepository.HandleEquipmentDefectAsync(defectID, request);
+        }
+
         public async Task<UpdateEquipmentResponseDTO> UpdateEquipmentAsync(string equipmentCode, UpdateEquipmentRequestDTO request)
         {
             return await _equipmentRepository.UpdateEquipmentAsync(equipmentCode, request);

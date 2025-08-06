@@ -121,8 +121,7 @@ namespace SW_MES_API.Repositories.Admin
 
         public async Task HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request)
         {
-            _context.EquipmentDefect.Update(request);
-            await _context.SaveChangesAsync();
+            
             try
             {
                 var equipmentDefect = await _context.EquipmentDefect.FindAsync(defectID);
@@ -140,7 +139,9 @@ namespace SW_MES_API.Repositories.Admin
             }
             catch (Exception ex)
             {
-                
+                // 예외 로그를 남기거나 처리하는 로직이 들어갈 수 있음
+                throw new Exception($"결함 처리 중 오류 발생: {ex.Message}");
             }
+        }
     }
 }
