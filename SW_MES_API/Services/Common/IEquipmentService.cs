@@ -17,7 +17,7 @@ namespace SW_MES_API.Services.Common
         Task<UpdateEquipmentResponseDTO> UpdateEquipmentAsync(string equipmentCode, UpdateEquipmentRequestDTO request);
 
         // 설비 결함 처리 (관리자)
-        Task HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request);
+        Task<EquipmentDefectResoponseDTO> HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request);
 
         // 모든 설비 조회
         Task<EquipmentListResponseDTO> GetAllEquipmentsAsync();

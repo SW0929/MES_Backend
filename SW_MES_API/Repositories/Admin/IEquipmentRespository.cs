@@ -15,6 +15,6 @@ namespace SW_MES_API.Repositories.Admin
         Task<DeleteEquipmentResponseDTO> DeleteEquipmentAsync(string equipmentCode);
 
         // 설비 결함 처리
-        Task HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request);
+        Task<EquipmentDefectResoponseDTO> HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request);
     }
 }
