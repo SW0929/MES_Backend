@@ -16,6 +16,7 @@ namespace SW_MES_API.Controllers.Admin
             _lotsService = lotsService;
         }
 
+        // 관리자용 Lot 관련 API
         [HttpPost]
         public async Task<IActionResult> InsertLots([FromBody] CreateLotRequestDTO request)
         {
@@ -53,5 +54,8 @@ namespace SW_MES_API.Controllers.Admin
                 return NotFound(new { message = $"Lot '{request.LotCode}'을(를) 찾을 수 없습니다." });
             return Ok(new { message = "작업자/설비 할당 완료", assignedLot = result });
         }
+        // 작업자에게 할당된 Lot 목록 조회
+        [HttpGet]
+
     }
 }

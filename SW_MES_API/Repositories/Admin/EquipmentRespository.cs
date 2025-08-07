@@ -119,16 +119,18 @@ namespace SW_MES_API.Repositories.Admin
 
         }
 
-        public async Task HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request)
+        public async Task<EquipmentDefectResoponseDTO> HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request)
         {
-            _context.EquipmentDefect.Update(request);
-            await _context.SaveChangesAsync();
+            
             try
             {
                 var equipmentDefect = await _context.EquipmentDefect.FindAsync(defectID);
                 if (equipmentDefect == null)
                 {
-                    throw new Exception("해당 결함이 존재하지 않습니다.");
+                    new EquipmentDefectResoponseDTO
+                    {
+                        Message = "해당 결함이 존재하지 않습니다." 
+                    };
                 }
                 // 결함 상태 업데이트
                 equipmentDefect.Status = request.Status;
@@ -137,10 +139,19 @@ namespace SW_MES_API.Repositories.Admin
                 // 변경된 내용을 데이터베이스에 저장
                 _context.EquipmentDefect.Update(equipmentDefect);
                 await _context.SaveChangesAsync();
+                return new EquipmentDefectResoponseDTO
+                {
+                    Message = "설비 결함 처리 완료" 
+                };
             }
             catch (Exception ex)
             {
-                
+                // 예외 로그를 남기거나 처리하는 로직이 들어갈 수 있음
+                return new EquipmentDefectResoponseDTO
+                {
+                    Message = $"결함 처리 중 오류 발생 : {ex.Message}"
+                };
             }
+        }
     }
 }

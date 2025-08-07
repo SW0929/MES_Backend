@@ -46,6 +46,15 @@ namespace SW_MES_API.Controllers
             return Ok(new { message = result.Message, result.EquipmentCode });
         }
 
+        [HttpPatch("defect/{defectID}")] // 설비 결함 처리
+        public async Task<IActionResult> HandleEquipmentDefect(int defectID, [FromBody] EquipmentDefectRequestDTO request)
+        {
+            if (request == null)
+                return BadRequest(new { message = "잘못된 요청입니다." });
+            await _equipmentService.HandleEquipmentDefectAsync(defectID, request);
+            return Ok(new { message = "설비 결함 처리 완료" });
+        }
+
         [HttpGet] // 설비 전체 조회
         public async Task<IActionResult> GetAllEquipments()
         {
