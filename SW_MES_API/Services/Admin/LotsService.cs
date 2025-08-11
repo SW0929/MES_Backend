@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
-using SW_MES_API.DTO;
+using SW_MES_API.DTO.Admin.LotProcess;
 using SW_MES_API.DTO.Admin.Lots;
 using SW_MES_API.Models;
 using SW_MES_API.Repositories.Admin;

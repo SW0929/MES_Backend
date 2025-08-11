@@ -5,7 +5,7 @@ namespace SW_MES_API.Models
     public class LotProcess
     {
         [Key]
-        //public int LotPrcessCode { get; set; }
+        public int LotProcessCode { get; set; }
         public required string LotCode { get; set; }
         public required string ProcessCode { get; set; }
         public int? GoodQty { get; set; }
@@ -17,5 +17,6 @@ namespace SW_MES_API.Models
         public required string Status { get; set; }
         public string? DefectCause { get; set; }
 
+        
     }
 }

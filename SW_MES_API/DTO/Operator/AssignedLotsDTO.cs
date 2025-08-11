@@ -2,6 +2,7 @@
 {
     public class AssignedLotsDTO
     {
+        public required int LotProcessCode { get; set; }
         public required string LotCode { get; set; }
         public required string ProcessCode { get; set; }
         public required string ProductName { get; set; }
