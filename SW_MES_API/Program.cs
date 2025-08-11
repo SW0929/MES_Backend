@@ -5,10 +5,12 @@ using SW_MES_API.Repositories;
 using SW_MES_API.Repositories.Admin;
 using SW_MES_API.Repositories.Common;
 using SW_MES_API.Repositories.Login;
+using SW_MES_API.Repositories.Operator;
 using SW_MES_API.Services;
 using SW_MES_API.Services.Admin;
 using SW_MES_API.Services.Common;
 using SW_MES_API.Services.Login;
+using SW_MES_API.Services.Operator;
 
 namespace SW_MES_API
 {
@@ -41,12 +43,17 @@ namespace SW_MES_API
             builder.Services.AddScoped<ILotRepository, LotsRepository>();
             builder.Services.AddScoped<ILotProcessRepository, LotProcessRepository>();
             builder.Services.AddScoped<ILotService,LotsService>();
+
             builder.Services.AddScoped<IEquipmentListRepository, EquipmentListRepository>();
             builder.Services.AddScoped<IEquipmentService, EquipmentService>();
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<IEquipmentRespository, EquipmentRespository>();
 
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            
+
+            builder.Services.AddScoped<IAssignedLotsListRepository, AssignedLotsListRepository>();
+            builder.Services.AddScoped<IAssignedLotsListService, AssignedLotsListService>();
 
 
             builder.Services.AddSingleton<JwtService>();

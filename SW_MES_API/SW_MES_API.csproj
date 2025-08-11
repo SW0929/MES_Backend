@@ -16,9 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Operator\" />
     <Folder Include="DTO\Admin\LotProcess\" />
-    <Folder Include="Services\Operator\" />
   </ItemGroup>
 
 </Project>

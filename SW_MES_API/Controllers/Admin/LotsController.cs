@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO;
 using SW_MES_API.DTO.Admin.Lots;
+using SW_MES_API.DTO.Operator;
 using SW_MES_API.Services.Admin;
+using SW_MES_API.Services.Operator;
 
 namespace SW_MES_API.Controllers.Admin
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     public class LotsController : ControllerBase
     {
         private readonly ILotService _lotsService;
@@ -54,8 +56,8 @@ namespace SW_MES_API.Controllers.Admin
                 return NotFound(new { message = $"Lot '{request.LotCode}'을(를) 찾을 수 없습니다." });
             return Ok(new { message = "작업자/설비 할당 완료", assignedLot = result });
         }
-        // 작업자에게 할당된 Lot 목록 조회
-        [HttpGet]
+        
+        
 
     }
 }

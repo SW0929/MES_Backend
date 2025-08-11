@@ -3,6 +3,6 @@
     public class AssignedLotsRequestDTO
     {
         public int EmployeeID { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
     }
 }
