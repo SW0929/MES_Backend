@@ -25,6 +25,7 @@ namespace SW_MES_API.Repositories.Operator
                               && (lp.Status == "대기" || lp.Status == "진행중")
                         select new AssignedLotsDTO
                         {
+                            LotProcessCode = lp.LotProcessCode,
                             LotCode = lp.LotCode,
                             ProcessCode = lp.ProcessCode,
                             ProductName = p.Name,

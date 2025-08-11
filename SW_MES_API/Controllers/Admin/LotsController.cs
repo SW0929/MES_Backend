@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SW_MES_API.DTO;
+using SW_MES_API.DTO.Admin.LotProcess;
 using SW_MES_API.DTO.Admin.Lots;
 using SW_MES_API.DTO.Operator;
 using SW_MES_API.Services.Admin;

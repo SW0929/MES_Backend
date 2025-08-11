@@ -54,6 +54,9 @@ namespace SW_MES_API
 
             builder.Services.AddScoped<IAssignedLotsListRepository, AssignedLotsListRepository>();
             builder.Services.AddScoped<IAssignedLotsListService, AssignedLotsListService>();
+            
+            builder.Services.AddScoped<IWorkStartRepository, WorkStartRepository>();
+            builder.Services.AddScoped<IWorkStartService, WorkStartService>();
 
 
             builder.Services.AddSingleton<JwtService>();
