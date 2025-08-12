@@ -16,6 +16,11 @@ namespace SW_MES_API.Services.Operator
             _context = context; // Assuming the repository has a Context property
         }
 
+        public async Task<PerformanceResponseDTO> LotPerformance(int lotProcessCode, PerformanceRequestDTO request)
+        {
+            return await _workStartRepository.LotPerformance(lotProcessCode, request);
+        }
+
         public async Task<CompleteLotProcessResponseDTO> WorkComplete(int lotProcessCode)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();

@@ -2,6 +2,7 @@
 using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.DTO.Admin.WorkOrder;
 using SW_MES_API.DTO.Common;
+using SW_MES_API.DTO.Operator;
 using SW_MES_API.Models;
 using SW_MES_API.Repositories.Admin;
 using SW_MES_API.Repositories.Common;
@@ -23,6 +24,11 @@ namespace SW_MES_API.Services.Common
         public async Task<CreateEquipmentResponse> CreateEquipment(CreateEquipmentRequestDTO request)
         {
             return await _equipmentRepository.CreateEquipmentAsync(request);
+        }
+
+        public async Task<CreateEquipmentDefectResponseDTO> CreateEquipmentDefect(CreateEquipmentDefectRequestDTO request)
+        {
+            return await _equipmentRepository.RegisterEquipmentDefectAsync(request);
         }
 
         public async Task<DeleteEquipmentResponseDTO> DeleteEquipmentAsync(string equipmentCode)

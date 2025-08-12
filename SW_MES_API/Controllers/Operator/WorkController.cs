@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SW_MES_API.DTO.Operator;
 using SW_MES_API.Services.Operator;
 
 namespace SW_MES_API.Controllers.Operator
@@ -25,6 +26,17 @@ namespace SW_MES_API.Controllers.Operator
         public async Task<IActionResult> CompleteLot(int lotProcessCode)
         {
             var response = await _workService.WorkComplete(lotProcessCode);
+            return Ok(response);
+        }
+
+        [HttpPatch("performance/{lotProcessCode:int}")]
+        public async Task<IActionResult> LotPerformance(int lotProcessCode, [FromBody] PerformanceRequestDTO request)
+        {
+            if (request == null)
+            {
+                return BadRequest("성능 데이터 요청이 유효하지 않습니다.");
+            }
+            var response = await _workService.LotPerformance(lotProcessCode, request);
             return Ok(response);
         }
     }

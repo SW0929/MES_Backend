@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
 using SW_MES_API.DTO.Admin.Equipment;
+using SW_MES_API.DTO.Operator;
 using SW_MES_API.Models;
 
 namespace SW_MES_API.Repositories.Admin
@@ -127,22 +128,26 @@ namespace SW_MES_API.Repositories.Admin
                 var equipmentDefect = await _context.EquipmentDefect.FindAsync(defectID);
                 if (equipmentDefect == null)
                 {
-                    new EquipmentDefectResoponseDTO
+                    return new EquipmentDefectResoponseDTO
                     {
                         Message = "해당 결함이 존재하지 않습니다." 
                     };
                 }
-                // 결함 상태 업데이트
-                equipmentDefect.Status = request.Status;
-                equipmentDefect.SolvedBy = request.SolvedBy;
-                equipmentDefect.SolvedDate = request.SolvedDate ?? DateTime.Now;
-                // 변경된 내용을 데이터베이스에 저장
-                _context.EquipmentDefect.Update(equipmentDefect);
-                await _context.SaveChangesAsync();
-                return new EquipmentDefectResoponseDTO
+                else
                 {
-                    Message = "설비 결함 처리 완료" 
-                };
+                    // 결함 상태 업데이트
+                    equipmentDefect.Status = request.Status;
+                    equipmentDefect.SolvedBy = request.SolvedBy;
+                    equipmentDefect.SolvedDate = request.SolvedDate ?? DateTime.Now;
+                    // 변경된 내용을 데이터베이스에 저장
+                    _context.EquipmentDefect.Update(equipmentDefect);
+                    await _context.SaveChangesAsync();
+                    return new EquipmentDefectResoponseDTO
+                    {
+                        Message = "설비 결함 처리 완료"
+                    };
+                }
+                    
             }
             catch (Exception ex)
             {
@@ -152,6 +157,36 @@ namespace SW_MES_API.Repositories.Admin
                     Message = $"결함 처리 중 오류 발생 : {ex.Message}"
                 };
             }
+        }
+
+        public async Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request)
+        {
+            try
+            {
+                
+                var equipmentDefect = new EquipmentDefect
+                {
+                    EquipmentCode = request.EquipmentCode,
+                    DefectDate = request.DefectDate,
+                    IssuedBy = request.IssuedBy,
+                    Status = request.Status,
+                    DefectReason = request.DefectReason
+                };
+                await _context.EquipmentDefect.AddAsync(equipmentDefect);
+                await _context.SaveChangesAsync();
+                return new CreateEquipmentDefectResponseDTO
+                {
+                    Message = "설비 결함 등록 완료"
+                };
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(new CreateEquipmentDefectResponseDTO
+                {
+                    Message = $"설비 결함 등록 실패: {ex.Message}"
+                });
+            }
+            
         }
     }
 }

@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Admin.Equipment;
+using SW_MES_API.DTO.Operator;
 using SW_MES_API.Services.Common;
 
 namespace SW_MES_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class EquipmentController: ControllerBase
+    public class EquipmentController : ControllerBase
     {
         private readonly IEquipmentService _equipmentService;
 
@@ -24,7 +25,7 @@ namespace SW_MES_API.Controllers
             if (result == null)
                 return BadRequest(new { message = "설비 추가 실패" });
 
-            return StatusCode(201, new { message = "설비 추가 완료"});
+            return StatusCode(201, new { message = "설비 추가 완료" });
 
         }
 
@@ -34,7 +35,7 @@ namespace SW_MES_API.Controllers
             var reslt = await _equipmentService.UpdateEquipmentAsync(equipmentCode, request);
             if (reslt == null)
                 return NotFound(new { message = "해당 설비를 찾을 수 없습니다." });
-            return Ok(new { message = reslt.Message});
+            return Ok(new { message = reslt.Message });
         }
 
         [HttpDelete("{equipmentCode}")] // 설비 삭제
@@ -86,6 +87,17 @@ namespace SW_MES_API.Controllers
                 message = equipments.Message,
                 Equipments = equipments.Equipments
             });
+        }
+
+        [HttpPost("defect")] // 설비 결함 등록
+        public async Task<IActionResult> CreateEquipmentDefect([FromBody] CreateEquipmentDefectRequestDTO request)
+        {
+            if (request == null)
+                return BadRequest(new { message = "잘못된 요청입니다." });
+            var result = await _equipmentService.CreateEquipmentDefect(request);
+            if (result == null)
+                return BadRequest(new { message = "설비 결함 등록 실패" });
+            return StatusCode(201, new { message = "설비 결함 등록 완료" });
         }
     }
 }

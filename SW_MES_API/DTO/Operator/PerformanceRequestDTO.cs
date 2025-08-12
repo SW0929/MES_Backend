@@ -1,0 +1,9 @@
+﻿namespace SW_MES_API.DTO.Operator
+{
+    public class PerformanceRequestDTO
+    {
+        public int GoodQty { get; set; }
+        public int DefectQty { get; set; }
+        public string? DefectCause { get; set; }
+    }
+}
