@@ -1,6 +1,7 @@
 ﻿using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.DTO.Admin.Lots;
 using SW_MES_API.DTO.Common;
+using SW_MES_API.DTO.Operator;
 using SW_MES_API.Models;
 
 namespace SW_MES_API.Services.Common
@@ -23,5 +24,7 @@ namespace SW_MES_API.Services.Common
         Task<EquipmentListResponseDTO> GetAllEquipmentsAsync();
         // 특정 공정에 속한 설비 조회
         Task<EquipmentListResponseDTO> GetEquipmentByProcessAsync(string ProcessCode);
+
+        Task<CreateEquipmentDefectResponseDTO> CreateEquipmentDefect(CreateEquipmentDefectRequestDTO request);
     }
 }

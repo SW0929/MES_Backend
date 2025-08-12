@@ -32,6 +32,38 @@ namespace SW_MES_API.Repositories.Operator
             await _context.SaveChangesAsync();
         }
 
+        public async Task<PerformanceResponseDTO> LotPerformance(int lotProcessCode, PerformanceRequestDTO request)
+        {
+            try
+            {
+                var performance = await _context.LotProcess.FindAsync(lotProcessCode);
+                if (performance == null)
+                    return new PerformanceResponseDTO 
+                    {
+                        Message = "해당 LotProcess를 찾을 수 없습니다.",
+                    };
+                else
+                {
+                    // 성능 데이터 처리 로직
+                    performance.GoodQty = request.GoodQty;
+                    performance.DefectQty = request.DefectQty;
+                    performance.DefectCause = request.DefectCause;
+                    _context.LotProcess.Update(performance);
+                    await _context.SaveChangesAsync();
+                    return new PerformanceResponseDTO
+                    { Message = "성능 데이터가 성공적으로 업데이트되었습니다." };
+                }
+                    
+            }
+            catch (Exception ex)
+            {
+                // 예외 처리 로직
+                throw new Exception($"Error calculating performance: {ex.Message}");
+            }
+
+
+        }
+
         public async Task StartAssignedLot(int lotProcessCode, string lotStatus, string processCode)
         {
             var lotProcess = await _context.LotProcess.FindAsync(lotProcessCode);

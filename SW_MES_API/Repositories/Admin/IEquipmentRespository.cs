@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SW_MES_API.DTO.Admin.Equipment;
+using SW_MES_API.DTO.Operator;
 using SW_MES_API.Models;
 
 namespace SW_MES_API.Repositories.Admin
@@ -16,5 +17,8 @@ namespace SW_MES_API.Repositories.Admin
 
         // 설비 결함 처리
         Task<EquipmentDefectResoponseDTO> HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request);
+
+        // 설비 결함 등록
+        Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request);
     }
 }
