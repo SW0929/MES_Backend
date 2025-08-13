@@ -161,9 +161,11 @@ namespace SW_MES_API.Repositories.Admin
 
         public async Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request)
         {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
             try
             {
-                
+                // 1. 설비 결함 등록
                 var equipmentDefect = new EquipmentDefect
                 {
                     EquipmentCode = request.EquipmentCode,
@@ -173,20 +175,39 @@ namespace SW_MES_API.Repositories.Admin
                     DefectReason = request.DefectReason
                 };
                 await _context.EquipmentDefect.AddAsync(equipmentDefect);
+
+                // 2. 설비 상태 "고장"으로 변경
+                var equipment = await _context.Equipment
+                    .FirstOrDefaultAsync(e => e.EquipmentCode == request.EquipmentCode);
+
+                if (equipment == null)
+                    throw new Exception("해당 설비가 존재하지 않습니다.");
+
+                equipment.Status = "고장"; // 또는 Enum 사용 가능
+                _context.Equipment.Update(equipment);
+
+                // 3. 저장 (트랜잭션 범위)
                 await _context.SaveChangesAsync();
+
+                // 4. 커밋
+                await transaction.CommitAsync();
+
                 return new CreateEquipmentDefectResponseDTO
                 {
-                    Message = "설비 결함 등록 완료"
+                    Message = "설비 결함 등록 및 상태 변경 완료"
                 };
             }
             catch (Exception ex)
             {
-                return await Task.FromResult(new CreateEquipmentDefectResponseDTO
+                // 롤백
+                await transaction.RollbackAsync();
+
+                return new CreateEquipmentDefectResponseDTO
                 {
                     Message = $"설비 결함 등록 실패: {ex.Message}"
-                });
+                };
             }
-            
+
         }
     }
 }

@@ -20,5 +20,6 @@ namespace SW_MES_API.Repositories.Admin
 
         // 설비 결함 등록
         Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request);
+
     }
 }
