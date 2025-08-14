@@ -34,8 +34,8 @@ namespace SW_MES_API
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            builder.Services.AddScoped<UserRepository>();
-            builder.Services.AddScoped<UserService>();
+            builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            builder.Services.AddScoped<ILoginService, LoginService>();
 
             builder.Services.AddScoped<WorkOrderListRepository>();
             builder.Services.AddScoped<WorkOrderService>();
