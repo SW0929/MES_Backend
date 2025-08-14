@@ -11,10 +11,10 @@ namespace SW_MES_API.Controllers.Login
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly UserService _userService;
+        private readonly ILoginService _userService;
         private readonly JwtService _jwtService;
         
-        public AccountController(UserService userService, JwtService jwtService)
+        public AccountController(LoginService userService, JwtService jwtService)
         {
             _userService = userService;
             _jwtService = jwtService;
@@ -25,8 +25,8 @@ namespace SW_MES_API.Controllers.Login
         //IActionResult는 다양한 HTTP 응답 결과를 반환할 수 있는 ASP.NET Core의 기본 타입
         public async Task<IActionResult> Login([FromBody] LoginRequestDTO request)
         {
-            var user = await _userService.LoginAsync(request.EmployeeID);
-            if (user == null || !user.IsActive)
+            var user = await _userService.LoginAsync(request);
+            if (user == null)
                 return Unauthorized(new {message = "사번 또는 계정이 비활성화 상태입니다."});
 
             var token = _jwtService.GenerateToken(user); // JWT 발급
