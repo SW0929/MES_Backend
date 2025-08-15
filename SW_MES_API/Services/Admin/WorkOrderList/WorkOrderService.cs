@@ -1,31 +1,27 @@
 ﻿using SW_MES_API.DTO.Admin;
 using SW_MES_API.DTO.Admin.WorkOrder;
 using SW_MES_API.Models;
-using SW_MES_API.Repositories.Admin;
+using SW_MES_API.Repositories.Admin.WorkOrderList;
 
-namespace SW_MES_API.Services.Admin
+namespace SW_MES_API.Services.Admin.WorkOrderList
 {
-    public class WorkOrderService
+    public class WorkOrderService : IWorkOrderService
     {
-        private WorkOrderListRepository _repository;
+        private readonly IWorkOrderRepository _repository;
 
-        public WorkOrderService(WorkOrderListRepository repository)
+        public WorkOrderService(IWorkOrderRepository repository)
         {
             _repository = repository;
         }
 
         // 날짜 없이 조회
-        public async Task<WorkOrderListResponseDTO> GetAllWorkOrdersAsync()
+        public async Task<WorkOrderListResponseDTO?> GetAllWorkOrdersAsync()
         {
             var workOrders = await _repository.GetAllWorkOrdersAsync();
 
             if (workOrders == null || workOrders.Count == 0)
             {
-                return new WorkOrderListResponseDTO
-                {
-                    Message = "작업 지시가 없습니다.",
-                    WorkOrders = [] //new List<WorkOrderResponseDTO>()
-                };
+                return null;
             }
 
             // .Select(...)는 "매핑(mapping)" 작업을 수행
@@ -50,7 +46,7 @@ namespace SW_MES_API.Services.Admin
 
 
         // 날짜로 조회
-        public async Task<WorkOrderListResponseDTO> GetWorkOrdersByDateAsync(DateTime date)
+        public async Task<WorkOrderListResponseDTO?> GetWorkOrdersByDateAsync(DateTime date)
         {
             // 1. 특정 날짜로 작업 지시 조회
             var workOrders = await _repository.GetWorkOrdersByDateAsync(date);
@@ -58,11 +54,7 @@ namespace SW_MES_API.Services.Admin
             // 2. 없으면 빈 리스트 반환
             if (workOrders == null || workOrders.Count == 0)
             {
-                return new WorkOrderListResponseDTO
-                {
-                    Message = "해당 날짜에 작업 지시가 없습니다.",
-                    WorkOrders = [] //new List<WorkOrderResponseDTO>()
-                };
+                return null;
             }
 
             // 3. Entity -> DTO 매핑

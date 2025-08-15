@@ -2,13 +2,13 @@
 using SW_MES_API.Data;
 using SW_MES_API.Models;
 
-namespace SW_MES_API.Repositories.Admin
+namespace SW_MES_API.Repositories.Admin.WorkOrderList
 {
-    public class WorkOrderListRepository
+    public class WorkOrderRepository : IWorkOrderRepository
     {
         private readonly AppDbContext _context;
 
-        public WorkOrderListRepository(AppDbContext context)
+        public WorkOrderRepository(AppDbContext context)
         {
             _context = context;
         }
