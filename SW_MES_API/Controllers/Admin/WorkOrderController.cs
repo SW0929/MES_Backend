@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Admin.WorkOrder;
-using SW_MES_API.Services.Admin;
+using SW_MES_API.Services.Admin.WorkOrderList;
 
 namespace SW_MES_API.Controllers.Admin
 {
@@ -8,8 +8,8 @@ namespace SW_MES_API.Controllers.Admin
     [Route("api/[controller]")]
     public class WorkOrderController: ControllerBase
     {
-        private readonly WorkOrderService _workOrderService;
-        public WorkOrderController(WorkOrderService workOrderService)
+        private readonly IWorkOrderService _workOrderService;
+        public WorkOrderController(IWorkOrderService workOrderService)
         {
             _workOrderService = workOrderService;
         }
@@ -19,12 +19,12 @@ namespace SW_MES_API.Controllers.Admin
         {
             var response = await _workOrderService.GetAllWorkOrdersAsync();
 
-            if (response.WorkOrders == null || response.WorkOrders.Count == 0)
+            if (response == null)
             {
                 return NotFound(new WorkOrderListResponseDTO
                 {
                     Message = "작업 지시가 없습니다.",
-                    WorkOrders = new List<WorkOrderResponseDTO>()
+                    WorkOrders = [] //new List<WorkOrderResponseDTO>()
                 });
             }
 
@@ -36,6 +36,12 @@ namespace SW_MES_API.Controllers.Admin
         public async Task<IActionResult> GetWorkOrdersWithDate([FromQuery] DateTime date)
         {
             var response = await _workOrderService.GetWorkOrdersByDateAsync(date);
+            if (response == null)
+                return NotFound(new WorkOrderListResponseDTO
+                {
+                    Message = "해당 날짜에 작업 지시가 없습니다.",
+                    WorkOrders = [] //new List<WorkOrderResponseDTO>()
+                });
             return Ok(response);
         }
 

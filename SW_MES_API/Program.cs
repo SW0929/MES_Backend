@@ -3,11 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
 using SW_MES_API.Repositories;
 using SW_MES_API.Repositories.Admin;
+using SW_MES_API.Repositories.Admin.WorkOrderList;
 using SW_MES_API.Repositories.Common;
 using SW_MES_API.Repositories.Login;
 using SW_MES_API.Repositories.Operator;
 using SW_MES_API.Services;
 using SW_MES_API.Services.Admin;
+using SW_MES_API.Services.Admin.WorkOrderList;
 using SW_MES_API.Services.Common;
 using SW_MES_API.Services.Login;
 using SW_MES_API.Services.Operator;
@@ -37,8 +39,8 @@ namespace SW_MES_API
             builder.Services.AddScoped<ILoginRepository, LoginRepository>();
             builder.Services.AddScoped<ILoginService, LoginService>();
 
-            builder.Services.AddScoped<WorkOrderListRepository>();
-            builder.Services.AddScoped<WorkOrderService>();
+            builder.Services.AddScoped<IWorkOrderRepository,WorkOrderRepository>();
+            builder.Services.AddScoped<IWorkOrderService, WorkOrderService>();
 
             builder.Services.AddScoped<ILotRepository, LotsRepository>();
             builder.Services.AddScoped<ILotProcessRepository, LotProcessRepository>();
