@@ -15,11 +15,11 @@ namespace SW_MES_API.Repositories.Admin
         // 설비 삭제
         Task<DeleteEquipmentResponseDTO> DeleteEquipmentAsync(string equipmentCode);
 
-        // 설비 결함 처리
-        Task<EquipmentDefectResoponseDTO> HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request);
+        // 모든 설비 조회
+        Task<List<Equipment>> GetALLEquipmentAsync();
 
-        // 설비 결함 등록
-        Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request);
+        // 특정 공정에 속한 모든 설비 조회
+        Task<List<Equipment>> GetALLEquipmentByProcessAsync(string ProcessCode);
 
     }
 }

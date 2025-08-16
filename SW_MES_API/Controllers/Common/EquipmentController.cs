@@ -4,7 +4,7 @@ using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.DTO.Operator;
 using SW_MES_API.Services.Common;
 
-namespace SW_MES_API.Controllers
+namespace SW_MES_API.Controllers.Common
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -47,14 +47,7 @@ namespace SW_MES_API.Controllers
             return Ok(new { message = result.Message, result.EquipmentCode });
         }
 
-        [HttpPatch("defect/{defectID}")] // 설비 결함 처리
-        public async Task<IActionResult> HandleEquipmentDefect(int defectID, [FromBody] EquipmentDefectRequestDTO request)
-        {
-            if (request == null)
-                return BadRequest(new { message = "잘못된 요청입니다." });
-            await _equipmentService.HandleEquipmentDefectAsync(defectID, request);
-            return Ok(new { message = "설비 결함 처리 완료" });
-        }
+        
 
         [HttpGet] // 설비 전체 조회
         public async Task<IActionResult> GetAllEquipments()
@@ -69,7 +62,7 @@ namespace SW_MES_API.Controllers
             return Ok(new
             {
                 message = "설비 조회 성공",
-                Equipments = equipments.Equipments
+                equipments.Equipments
             });
 
         }
@@ -85,19 +78,9 @@ namespace SW_MES_API.Controllers
             return Ok(new
             {
                 message = equipments.Message,
-                Equipments = equipments.Equipments
+                equipments.Equipments
             });
         }
-
-        [HttpPost("defect")] // 설비 결함 등록
-        public async Task<IActionResult> CreateEquipmentDefect([FromBody] CreateEquipmentDefectRequestDTO request)
-        {
-            if (request == null)
-                return BadRequest(new { message = "잘못된 요청입니다." });
-            var result = await _equipmentService.CreateEquipmentDefect(request);
-            if (result == null)
-                return BadRequest(new { message = "설비 결함 등록 실패" });
-            return StatusCode(201, new { message = "설비 결함 등록 완료" });
-        }
+        
     }
 }

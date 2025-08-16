@@ -12,23 +12,17 @@ namespace SW_MES_API.Services.Common
 
     public class EquipmentService : IEquipmentService
     {
-        private readonly IEquipmentListRepository _equipmentListRepository;
         private readonly IEquipmentRespository _equipmentRepository;
 
-        public EquipmentService(IEquipmentListRepository equipmentRepository, IEquipmentRespository equipmentRespository)
+        public EquipmentService(IEquipmentRespository equipmentRespository)
         {
-            _equipmentListRepository = equipmentRepository;
+            
             _equipmentRepository = equipmentRespository;
         }
 
         public async Task<CreateEquipmentResponse> CreateEquipment(CreateEquipmentRequestDTO request)
         {
             return await _equipmentRepository.CreateEquipmentAsync(request);
-        }
-
-        public async Task<CreateEquipmentDefectResponseDTO> CreateEquipmentDefect(CreateEquipmentDefectRequestDTO request)
-        {
-            return await _equipmentRepository.RegisterEquipmentDefectAsync(request);
         }
 
         public async Task<DeleteEquipmentResponseDTO> DeleteEquipmentAsync(string equipmentCode)
@@ -38,7 +32,7 @@ namespace SW_MES_API.Services.Common
 
         public async Task<EquipmentListResponseDTO> GetAllEquipmentsAsync()
         {
-            var equipments = await _equipmentListRepository.GetALLEquipmentAsync();
+            var equipments = await _equipmentRepository.GetALLEquipmentAsync();
 
             if (equipments == null || equipments.Count == 0)
             {
@@ -67,7 +61,7 @@ namespace SW_MES_API.Services.Common
 
         public async Task<EquipmentListResponseDTO> GetEquipmentByProcessAsync(string processCode)
         {
-            var equipments = await _equipmentListRepository.GetALLEquipmentByProcessAsync(processCode);
+            var equipments = await _equipmentRepository.GetALLEquipmentByProcessAsync(processCode);
 
             if (equipments == null || equipments.Count == 0)
             {
@@ -94,14 +88,11 @@ namespace SW_MES_API.Services.Common
             };
         }
 
-        public async Task<EquipmentDefectResoponseDTO> HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request)
-        {
-            return await _equipmentRepository.HandleEquipmentDefectAsync(defectID, request);
-        }
-
         public async Task<UpdateEquipmentResponseDTO> UpdateEquipmentAsync(string equipmentCode, UpdateEquipmentRequestDTO request)
         {
             return await _equipmentRepository.UpdateEquipmentAsync(equipmentCode, request);
         }
+
+        
     }
 }
