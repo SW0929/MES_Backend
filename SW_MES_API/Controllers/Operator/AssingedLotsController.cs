@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SW_MES_API.DTO.Operator;
+using SW_MES_API.DTO.Operator.AssignedLots;
 using SW_MES_API.Services.Operator;
 
 namespace SW_MES_API.Controllers.Operator

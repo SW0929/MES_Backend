@@ -1,16 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
 using SW_MES_API.DTO.Operator;
+using SW_MES_API.DTO.Operator.Performance;
 using SW_MES_API.Models;
-using SW_MES_API.Repositories.Operator;
+using SW_MES_API.Repositories.LotProcessRepository;
 
 namespace SW_MES_API.Services.Operator
 {
     public class WorkStartService : IWorkStartService
     {
-        private readonly IWorkStartRepository _workStartRepository;
+        private readonly ILotProcessRepository _workStartRepository;
         private readonly AppDbContext _context;
-        public WorkStartService(IWorkStartRepository workStartRepository, AppDbContext context)
+        public WorkStartService(ILotProcessRepository workStartRepository, AppDbContext context)
         {
             _workStartRepository = workStartRepository;
             _context = context; // Assuming the repository has a Context property

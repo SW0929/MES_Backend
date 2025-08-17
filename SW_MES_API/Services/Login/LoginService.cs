@@ -1,6 +1,6 @@
 ﻿using SW_MES_API.DTO.Login;
 using SW_MES_API.Models;
-using SW_MES_API.Repositories.Login;
+using SW_MES_API.Repositories.LoginRepository;
 
 namespace SW_MES_API.Services.Login
 {

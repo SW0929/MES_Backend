@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Common;
-using SW_MES_API.Services;
+using SW_MES_API.Services.Common.EmployeeService;
 
 namespace SW_MES_API.Controllers
 {

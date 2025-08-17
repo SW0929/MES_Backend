@@ -1,16 +1,16 @@
 
 using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
-using SW_MES_API.Repositories;
-using SW_MES_API.Repositories.Admin;
-using SW_MES_API.Repositories.Admin.WorkOrderList;
-using SW_MES_API.Repositories.Common;
-using SW_MES_API.Repositories.Login;
-using SW_MES_API.Repositories.Operator;
-using SW_MES_API.Services;
-using SW_MES_API.Services.Admin;
-using SW_MES_API.Services.Admin.WorkOrderList;
-using SW_MES_API.Services.Common;
+using SW_MES_API.Repositories.EmployeeRepository;
+using SW_MES_API.Repositories.EquipmentRepository;
+using SW_MES_API.Repositories.LoginRepository;
+using SW_MES_API.Repositories.LotProcessRepository;
+using SW_MES_API.Repositories.LotRepository;
+using SW_MES_API.Repositories.WorkOrderRepository;
+using SW_MES_API.Services.Admin.LotService;
+using SW_MES_API.Services.Admin.WorkOrderService;
+using SW_MES_API.Services.Common.EmployeeService;
+using SW_MES_API.Services.Common.EquipmentService;
 using SW_MES_API.Services.Login;
 using SW_MES_API.Services.Operator;
 
@@ -46,18 +46,15 @@ namespace SW_MES_API
             builder.Services.AddScoped<ILotProcessRepository, LotProcessRepository>();
             builder.Services.AddScoped<ILotService,LotsService>();
 
-            builder.Services.AddScoped<IEquipmentListRepository, EquipmentListRepository>();
             builder.Services.AddScoped<IEquipmentService, EquipmentService>();
-            builder.Services.AddScoped<IEquipmentRespository, EquipmentRespository>();
+            builder.Services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             
-
-            builder.Services.AddScoped<IAssignedLotsListRepository, AssignedLotsListRepository>();
             builder.Services.AddScoped<IAssignedLotsListService, AssignedLotsListService>();
             
-            builder.Services.AddScoped<IWorkStartRepository, WorkStartRepository>();
+            builder.Services.AddScoped<ILotProcessRepository, LotProcessRepository>();
             builder.Services.AddScoped<IWorkStartService, WorkStartService>();
 
 
