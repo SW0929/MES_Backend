@@ -1,12 +1,12 @@
-﻿using SW_MES_API.DTO.Operator;
-using SW_MES_API.Repositories.Operator;
+﻿using SW_MES_API.DTO.Operator.AssignedLots;
+using SW_MES_API.Repositories.LotProcessRepository;
 
 namespace SW_MES_API.Services.Operator
 {
     public class AssignedLotsListService : IAssignedLotsListService
     {
-        private readonly IAssignedLotsListRepository _repository;
-        public AssignedLotsListService(IAssignedLotsListRepository repository)
+        private readonly ILotProcessRepository _repository;
+        public AssignedLotsListService(ILotProcessRepository repository)
         {
             _repository = repository;
         }

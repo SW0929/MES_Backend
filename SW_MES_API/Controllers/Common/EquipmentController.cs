@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.DTO.Operator;
-using SW_MES_API.Services.Common;
+using SW_MES_API.Services.Common.EquipmentService;
 
 namespace SW_MES_API.Controllers.Common
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Admin.Equipment;
-using SW_MES_API.DTO.Operator;
-using SW_MES_API.Services.Common;
+using SW_MES_API.DTO.Operator.EquipmentDefect;
+using SW_MES_API.Services.Common.EquipmentDefectService;
 
 namespace SW_MES_API.Controllers.Operator
 {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Admin.WorkOrder;
-using SW_MES_API.Services.Admin.WorkOrderList;
+using SW_MES_API.Services.Admin.WorkOrderService;
 
 namespace SW_MES_API.Controllers.Admin
 {

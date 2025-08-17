@@ -1,4 +1,5 @@
 ﻿using SW_MES_API.DTO.Operator;
+using SW_MES_API.DTO.Operator.Performance;
 
 namespace SW_MES_API.Services.Operator
 {
