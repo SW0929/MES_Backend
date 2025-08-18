@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Operator.AssignedLots;
-using SW_MES_API.Services.Operator;
+using SW_MES_API.Services.Operator.LotProcessService;
 
 namespace SW_MES_API.Controllers.Operator
 {
@@ -8,8 +8,8 @@ namespace SW_MES_API.Controllers.Operator
     [Route("api/operator/[controller]")]
     public class AssingedLotsController : ControllerBase
     {
-        private readonly IAssignedLotsListService _assignedLotsListService;
-        public AssingedLotsController(IAssignedLotsListService assignedLotsListService)
+        private readonly ILotProcessService _assignedLotsListService;
+        public AssingedLotsController(ILotProcessService assignedLotsListService)
         {
             _assignedLotsListService = assignedLotsListService;
         }

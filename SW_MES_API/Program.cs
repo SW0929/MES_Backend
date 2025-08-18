@@ -12,7 +12,7 @@ using SW_MES_API.Services.Admin.WorkOrderService;
 using SW_MES_API.Services.Common.EmployeeService;
 using SW_MES_API.Services.Common.EquipmentService;
 using SW_MES_API.Services.Login;
-using SW_MES_API.Services.Operator;
+using SW_MES_API.Services.Operator.LotProcessService;
 
 namespace SW_MES_API
 {
@@ -52,10 +52,9 @@ namespace SW_MES_API
             builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             
-            builder.Services.AddScoped<IAssignedLotsListService, AssignedLotsListService>();
             
             builder.Services.AddScoped<ILotProcessRepository, LotProcessRepository>();
-            builder.Services.AddScoped<IWorkStartService, WorkStartService>();
+            builder.Services.AddScoped<ILotProcessService, LotProcessService>();
 
 
             builder.Services.AddSingleton<JwtService>();

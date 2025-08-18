@@ -17,7 +17,7 @@ namespace SW_MES_API.Controllers.Common
             _equipmentService = equipmentService;
         }
 
-        [HttpPost] // 설비 추가
+        [HttpPost("admin/create")] // 설비 추가
         public async Task<IActionResult> CreateEquipment([FromBody] CreateEquipmentRequestDTO request)
         {
             var result = await _equipmentService.CreateEquipment(request);
@@ -29,7 +29,7 @@ namespace SW_MES_API.Controllers.Common
 
         }
 
-        [HttpPut("{equipmentCode}")] // 설비 수정
+        [HttpPut("admin/{equipmentCode}")] // 설비 수정
         public async Task<IActionResult> UpdateEquipment(string equipmentCode, [FromBody] UpdateEquipmentRequestDTO request)
         {
             var reslt = await _equipmentService.UpdateEquipmentAsync(equipmentCode, request);
@@ -38,7 +38,7 @@ namespace SW_MES_API.Controllers.Common
             return Ok(new { message = reslt.Message });
         }
 
-        [HttpDelete("{equipmentCode}")] // 설비 삭제
+        [HttpDelete("admin/{equipmentCode}")] // 설비 삭제
         public async Task<IActionResult> DeleteEquipment(string equipmentCode)
         {
             var result = await _equipmentService.DeleteEquipmentAsync(equipmentCode);

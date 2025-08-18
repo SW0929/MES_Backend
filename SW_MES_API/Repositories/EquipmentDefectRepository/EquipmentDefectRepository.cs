@@ -13,47 +13,22 @@ namespace SW_MES_API.Repositories.EquipmentDefectRepository
         {
             _context = context;
         }
+
+        // 결함 ID로 설비 결함 조회
+        public async Task<EquipmentDefect?> GetEquipmentDefectAsync(int defectID)
+        {
+            return await _context.EquipmentDefect.FindAsync(defectID);
+        }
+
         #region 관리자
         /// <summary>
         /// 작업자가 등록한 설비 결함을 관리자가 처리하는 메서드
         /// </summary>
-        public async Task<EquipmentDefectResoponseDTO> HandleEquipmentDefectAsync(int defectID, EquipmentDefectRequestDTO request)
+        public async Task UpdateEquipmentDefectAsync(EquipmentDefect defect)
         {
+            _context.EquipmentDefect.Update(defect); // 결함 정보 업데이트
+            await _context.SaveChangesAsync(); // 변경 사항 저장
 
-            try
-            {
-                var equipmentDefect = await _context.EquipmentDefect.FindAsync(defectID);
-                if (equipmentDefect == null)
-                {
-                    return new EquipmentDefectResoponseDTO
-                    {
-                        Message = "해당 결함이 존재하지 않습니다."
-                    };
-                }
-                else
-                {
-                    // 결함 상태 업데이트
-                    equipmentDefect.Status = request.Status;
-                    equipmentDefect.SolvedBy = request.SolvedBy;
-                    equipmentDefect.SolvedDate = request.SolvedDate ?? DateTime.Now;
-                    // 변경된 내용을 데이터베이스에 저장
-                    _context.EquipmentDefect.Update(equipmentDefect);
-                    await _context.SaveChangesAsync();
-                    return new EquipmentDefectResoponseDTO
-                    {
-                        Message = "설비 결함 처리 완료"
-                    };
-                }
-
-            }
-            catch (Exception ex)
-            {
-                // 예외 로그를 남기거나 처리하는 로직이 들어갈 수 있음
-                return new EquipmentDefectResoponseDTO
-                {
-                    Message = $"결함 처리 중 오류 발생 : {ex.Message}"
-                };
-            }
         }
         #endregion
 

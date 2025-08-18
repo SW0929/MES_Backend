@@ -5,7 +5,7 @@ using SW_MES_API.Services.Admin.WorkOrderService;
 namespace SW_MES_API.Controllers.Admin
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/admin/[controller]")]
     public class WorkOrderController: ControllerBase
     {
         private readonly IWorkOrderService _workOrderService;

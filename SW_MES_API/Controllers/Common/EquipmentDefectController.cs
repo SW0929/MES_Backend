@@ -3,7 +3,7 @@ using SW_MES_API.DTO.Admin.Equipment;
 using SW_MES_API.DTO.Operator.EquipmentDefect;
 using SW_MES_API.Services.Common.EquipmentDefectService;
 
-namespace SW_MES_API.Controllers.Operator
+namespace SW_MES_API.Controllers.Common
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -16,16 +16,14 @@ namespace SW_MES_API.Controllers.Operator
         }
 
         // 설비 결함 처리
-        [HttpPatch("defect/{defectID}")]
+        [HttpPatch("admin/defect/{defectID}")]
         public async Task<IActionResult> HandleEquipmentDefect(int defectID, [FromBody] EquipmentDefectRequestDTO request)
         {
-            if (request == null)
-                return BadRequest(new { message = "잘못된 요청입니다." });
-            await _equipmentService.HandleEquipmentDefectAsync(defectID, request);
-            return Ok(new { message = "설비 결함 처리 완료" });
+            var result = await _equipmentService.HandleEquipmentDefectAsync(defectID, request);
+            return Ok(result);
         }
 
-        [HttpPost("defect")] // 설비 결함 등록
+        [HttpPost("operator/defect")] // 설비 결함 등록
         public async Task<IActionResult> CreateEquipmentDefect([FromBody] CreateEquipmentDefectRequestDTO request)
         {
             if (request == null)
