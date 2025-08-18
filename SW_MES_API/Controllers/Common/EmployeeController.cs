@@ -2,7 +2,7 @@
 using SW_MES_API.DTO.Common;
 using SW_MES_API.Services.Common.EmployeeService;
 
-namespace SW_MES_API.Controllers
+namespace SW_MES_API.Controllers.Common
 {
     [ApiController]
     [Route("api/[controller]")]

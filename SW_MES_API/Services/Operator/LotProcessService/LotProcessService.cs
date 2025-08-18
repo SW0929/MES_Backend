@@ -1,25 +1,46 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SW_MES_API.Data;
 using SW_MES_API.DTO.Operator;
+using SW_MES_API.DTO.Operator.AssignedLots;
 using SW_MES_API.DTO.Operator.Performance;
 using SW_MES_API.Models;
 using SW_MES_API.Repositories.LotProcessRepository;
 
-namespace SW_MES_API.Services.Operator
+namespace SW_MES_API.Services.Operator.LotProcessService
 {
-    public class WorkStartService : IWorkStartService
+    public class LotProcessService : ILotProcessService
     {
-        private readonly ILotProcessRepository _workStartRepository;
+        private readonly ILotProcessRepository _repository;
         private readonly AppDbContext _context;
-        public WorkStartService(ILotProcessRepository workStartRepository, AppDbContext context)
+        public LotProcessService(ILotProcessRepository workStartRepository, AppDbContext context)
         {
-            _workStartRepository = workStartRepository;
+            _repository = workStartRepository;
             _context = context; // Assuming the repository has a Context property
+        }
+
+        public async Task<AssignedLotsResponseDTO> GetAssignedLotsAsync(AssignedLotsRequestDTO request)
+        {
+            var assignedLots = await _repository.GetAssignedLotsAsync(request);
+
+            if (assignedLots == null || assignedLots.Count == 0)
+            {
+                return new AssignedLotsResponseDTO
+                {
+                    Message = "할당된 Lot이 없습니다.",
+                    AssignedLots = new List<AssignedLotsDTO>()
+                };
+            }
+
+            return new AssignedLotsResponseDTO
+            {
+                Message = "할당된 Lot 목록 조회 성공",
+                AssignedLots = assignedLots
+            };
         }
 
         public async Task<PerformanceResponseDTO> LotPerformance(int lotProcessCode, PerformanceRequestDTO request)
         {
-            return await _workStartRepository.LotPerformance(lotProcessCode, request);
+            return await _repository.LotPerformance(lotProcessCode, request);
         }
 
         public async Task<CompleteLotProcessResponseDTO> WorkComplete(int lotProcessCode)
@@ -52,7 +73,7 @@ namespace SW_MES_API.Services.Operator
                 var lotStatus = isLastProcess ? "완료" : "진행 중";
 
                 // 1) 현재 LotProcess 완료 처리
-                await _workStartRepository.CompleteAssignedLot(
+                await _repository.CompleteAssignedLot(
                     lotProcess.LotProcess.LotProcessCode,
                     "완료",
                     lotProcess.Process.ProcessCode);
@@ -134,7 +155,7 @@ namespace SW_MES_API.Services.Operator
                 var lotStatus = isLastProcess ? "완료" : "진행 중";
 
                 // Repository 호출 (DB 변경 작업)
-                await _workStartRepository.StartAssignedLot(lotProcess.LotProcess.LotProcessCode, lotStatus, lotProcess.Process.ProcessCode);
+                await _repository.StartAssignedLot(lotProcess.LotProcess.LotProcessCode, lotStatus, lotProcess.Process.ProcessCode);
 
                 // 트랜잭션 커밋
                 await transaction.CommitAsync();

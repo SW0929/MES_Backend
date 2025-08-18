@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SW_MES_API.DTO.Operator.Performance;
-using SW_MES_API.Services.Operator;
+using SW_MES_API.Services.Operator.LotProcessService;
 
 namespace SW_MES_API.Controllers.Operator
 {
@@ -8,8 +8,8 @@ namespace SW_MES_API.Controllers.Operator
     [Route("api/operator/[controller]")]
     public class WorkController : ControllerBase
     {
-        private readonly IWorkStartService _workService;
-        public WorkController(IWorkStartService workService)
+        private readonly ILotProcessService _workService;
+        public WorkController(ILotProcessService workService)
         {
             _workService = workService;
         }
