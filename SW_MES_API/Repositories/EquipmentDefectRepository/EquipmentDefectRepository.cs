@@ -26,13 +26,35 @@ namespace SW_MES_API.Repositories.EquipmentDefectRepository
         /// </summary>
         public async Task UpdateEquipmentDefectAsync(EquipmentDefect defect)
         {
-            _context.EquipmentDefect.Update(defect); // 결함 정보 업데이트
+            //_context.EquipmentDefect.Update(defect); // 결함 정보 업데이트
             await _context.SaveChangesAsync(); // 변경 사항 저장
 
         }
         #endregion
 
         #region 작업자
+        // 새로운 설비 결함 추가
+        public async Task CreateEquipmentDefect(EquipmentDefect equipmentDefect)
+        {
+            await _context.EquipmentDefect.AddAsync(equipmentDefect); // 결함 정보 추가
+            
+        }
+
+        // EquipmentRepository로 이동해야 함.
+        public async Task<Equipment?> GetEquipment(string EquipmentCode)
+        {
+            return await _context.Equipment.FirstOrDefaultAsync(e => e.EquipmentCode == EquipmentCode);
+        }
+
+        /*
+        //SaveChangesAsync() 호출 시 변경 감지가 일어나니까 Update() 호출이 없어도 반영
+        public void UpdateEquipmentStatus(Equipment equipment)
+        {
+            _context.Equipment.Update(equipment); // 설비 상태 업데이트
+            
+        }
+        */
+        /* 이거는 처음에 만든거 위에 메서드 나눴음
         // 작업자가 설비 결함을 등록하는 메서드 (트랜잭션은 서비스 로직에서 처리)
         public async Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request)
         {
@@ -83,7 +105,7 @@ namespace SW_MES_API.Repositories.EquipmentDefectRepository
                 };
             }
 
-        }
+        }*/
         #endregion
     }
 }

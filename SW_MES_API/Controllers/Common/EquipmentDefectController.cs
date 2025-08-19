@@ -22,7 +22,7 @@ namespace SW_MES_API.Controllers.Common
             var result = await _equipmentService.HandleEquipmentDefectAsync(defectID, request);
             return Ok(result);
         }
-
+        // 설비 결함 등록
         [HttpPost("operator/defect")] // 설비 결함 등록
         public async Task<IActionResult> CreateEquipmentDefect([FromBody] CreateEquipmentDefectRequestDTO request)
         {

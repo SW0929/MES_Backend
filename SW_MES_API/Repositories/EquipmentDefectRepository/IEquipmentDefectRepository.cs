@@ -11,6 +11,12 @@ namespace SW_MES_API.Repositories.EquipmentDefectRepository
         // 설비 결함 처리
         Task UpdateEquipmentDefectAsync(EquipmentDefect request);
         // 설비 결함 등록
-        Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request);
+        //Task<CreateEquipmentDefectResponseDTO> RegisterEquipmentDefectAsync(CreateEquipmentDefectRequestDTO request);
+
+        Task CreateEquipmentDefect(EquipmentDefect equipmentDefect);
+
+        Task<Equipment?> GetEquipment(string EquipmentCode);
+
+        //public void UpdateEquipmentStatus(Equipment equipment);
     }
 }
